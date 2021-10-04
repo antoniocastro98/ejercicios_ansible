@@ -1,0 +1,44 @@
+- hosts: servidores
+  become: true
+  tasks:
+   - name: Crear un usuario en el servidor remoto que tenga tu nombre
+     user:
+       name: antonio
+       password: antonio
+   - name: Descarga el fichero desde la url
+     get_url:
+       url: https://wordpress.org/latest.zip 
+       dest: /home/vagrant
+       mode: '0440'
+   - name: Instalar el paquete para descomprimir
+     apt:
+      name:
+      - unzip
+   - name: Descomprimir el fichero
+     unarchive:
+       src: /home/vagrant/wordpress-5.8.1.zip
+       dest: /home/vagrant
+       remote_src: True
+   - name: Instalar el paquete mariadb
+     apt:
+      name:
+      - mariadb-server
+      - git
+      - python3-mysqldb
+   - name: Crea una base de datos que se llame tunombre_wordpress
+     mysql_db:
+       name: antonio_wordpress
+       state: present
+   - name: Crea un usuario que se llame my_nombre que tenga privilegios sobre la base de datos.
+     mysql_user:
+       name: my_antonio
+       password: admin
+       priv: 
+         'antonio_wordpress.*': 'ALL,GRANT'
+       state: present
+   - name: Clona el repositorio
+     git:
+       repo: https://github.com/josedom24/ansible_ejemplos.git
+       dest: /home/vagrant
+       clone: yes
+       update: yes
