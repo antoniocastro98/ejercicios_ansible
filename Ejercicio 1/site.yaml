@@ -7,9 +7,9 @@
        password: antonio
    - name: Descarga el fichero desde la url
      get_url:
-       url: https://wordpress.org/latest.zip 
-       dest: /home/vagrant
-       mode: '0440'
+      url: https://wordpress.org/latest.zip 
+      dest: /home/vagrant
+      mode: '0440'
    - name: Instalar el paquete para descomprimir
      apt:
       name:
@@ -36,9 +36,9 @@
        priv: 
          'antonio_wordpress.*': 'ALL,GRANT'
        state: present
-   - name: Clona el repositorio
+   - name: Clonar repositorio de github
      git:
        repo: https://github.com/josedom24/ansible_ejemplos.git
-       dest: /home/vagrant
+       dest: /home/vagrant/repositorio
        clone: yes
        update: yes
