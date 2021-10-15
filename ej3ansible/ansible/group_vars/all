@@ -1,0 +1,6 @@
+ip_router: 10.0.0.11
+mascara: 255.255.255.0
+ruta_servidor: 10.0.0.0/24
+interfaz_salida: eth1
+ip_cliente: 10.0.0.12
+
